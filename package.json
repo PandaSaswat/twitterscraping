@@ -1,0 +1,21 @@
+{
+  "name": "twitscrapetest",
+  "version": "1.0.0",
+  "description": "twitter bot",
+  "main": "bot.js",
+  "dependencies": {
+    "twit": "^2.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "panda S",
+  "license": "ISC",
+  "keywords": [
+    "twitter",
+    "data",
+    "retrieval"
+  ]
+}
