@@ -1,21 +1,26 @@
 {
-  "name": "twitscrapetest",
+  "name": "tweetsdler",
   "version": "1.0.0",
-  "description": "twitter bot",
-  "main": "bot.js",
+  "description": "dls some tweets to a csv file",
+  "main": "scrape.js",
   "dependencies": {
+    "bluebird": "^3.4.7",
+    "express": "^4.14.1",
+    "fs": "^0.0.1-security",
+    "http-server": "^0.9.0",
+    "jquery": "^3.1.1",
     "twit": "^2.2.5"
   },
-  "devDependencies": {},
-  "scripts": {
-    "start": "node bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "browserify": "^14.1.0",
+    "promise": "^7.1.1"
   },
-  "author": "panda S",
-  "license": "ISC",
+  "scripts": {
+    "test": "node tweetgrabber.js"
+  },
   "keywords": [
-    "twitter",
-    "data",
-    "retrieval"
-  ]
+    "twitter"
+  ],
+  "author": "sp",
+  "license": "ISC"
 }
