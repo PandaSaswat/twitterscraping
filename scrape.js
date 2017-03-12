@@ -1,25 +1,26 @@
-console.log('The bot is starting.');
+console.log('The app is starting...');
+// dependencies; npm install ...
+const fs = require('fs');
+const Promise = require('bluebird');
+const Twit = require('twit');
+// api-keys.js with twitter API keys from https://dev.twitter.com/
+// (requires a verified account and phone number)
+const config = require('./api-keys');
 
-var Twit = require('twit');
-var fs = require('fs');
-var config = require('./config');
-// console.log(config);
+Promise.promisifyAll(fs);
 
-var T = new Twit(config);
+const T = new Twit(config);
+Promise.promisifyAll(T);
 
-var params = {
-    q: 'javascript',
-    count: 10
-};
+console.log('Fetching tweets...');
 
-T.get('search/tweets', params, gotData);
-
-function gotData(err, data, response) {
-  var tweets = data.statuses;
-  var justText = [];
-  for (var i = 0; i < tweets.length; i++)
-    justText[i] = tweets[i].text + ',' + tweets[i].coordinates;
-  console.log(justText);
-  fs.writeFile('testing.csv', JSON.stringify(justText, null, 4));
-  console.log('tweets written to file');
+// GET request rate limits @ 180 calls per 15 minutes, see: https://dev.twitter.com/rest/public/rate-limiting
+function getTweets(q) {
+  return T.get('search/tweets', { q, count: 100 })
+    .then(res => res.data.statuses)
+    .then(data => data.map(e => `${e.id_str},${e.text},${e.created_at}`))
+    .then(e => fs.writeFile('testing.csv', JSON.stringify(e, null, 4)));
 }
+
+getTweets('Thiomersal'); // search term here.
+console.log('Tweets written to file!');
